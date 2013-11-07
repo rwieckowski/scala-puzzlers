@@ -9,4 +9,16 @@ package object puzzlers {
     }
     deduplicate(xs, Nil).reverse
   }
+
+  def change(coins: List[Int], amount: Int): List[List[Int]] = {
+    if (amount == 0) List(List.fill(coins.size)(0))
+    else coins match {
+      case c :: rest => {
+        for (i <- 0 to amount / c;
+          ch <- change(rest, amount - i * c)
+        ) yield i :: ch
+      }.toList
+      case Nil => Nil
+    }
+  }
 }
