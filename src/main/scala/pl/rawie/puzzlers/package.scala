@@ -23,12 +23,12 @@ package object puzzlers {
   }
 
   case class Rect(x: Int, y: Int, w: Int, h: Int) {
-    private val projections = List(x to x + w, y to y + h)
+    private val xp = x to x + w
+    private val yp = y to y + h
 
     def overlap(that: Rect) =
-      projections.zip(that.projections).forall {
-        case (p1, p2) => p1.intersect(p2).nonEmpty
-      }
+      xp.intersect(that.xp).nonEmpty &&
+      yp.intersect(that.yp).nonEmpty
   }
 
   def overlap(rs: List[Rect]): Boolean = rs match {
