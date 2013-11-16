@@ -28,6 +28,10 @@ class ChangeSpec extends FlatSpec with ShouldMatchers {
     change(List(1, 2), 4) should equal(List(List(0, 2), List(2, 1), List(4, 0)))
   }
 
+  it should "return changes for coins List(3) and amount 5" in {
+    change(List(3), 5) should equal(Nil)
+  }
+
   it should "return changes for coins List(1, 5, 10, 15) and small amount" in {
     change(List(1, 5, 10, 15), 100).size should equal(358)
   }
