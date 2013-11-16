@@ -21,4 +21,18 @@ package object puzzlers {
       case Nil => Nil
     }
   }
+
+  case class Rect(x: Int, y: Int, w: Int, h: Int) {
+    private val projections = List(x to x + w, y to y + h)
+
+    def overlap(that: Rect) =
+      projections.zip(that.projections).forall {
+        case (p1, p2) => p1.intersect(p2).nonEmpty
+      }
+  }
+
+  def overlap(rs: List[Rect]): Boolean = rs match {
+    case Nil => true
+    case r :: rest => rest.forall(r.overlap) && overlap(rest)
+  }
 }
